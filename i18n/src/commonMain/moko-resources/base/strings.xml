@@ -23,7 +23,7 @@
     <string name="reader_moire_threshold">Moiré reduction threshold</string>
     <string name="reader_moire_threshold_percent">%1$d%%</string>
     <string name="reader_moire_threshold_summary">Apply when the display scale is at most %1$d%% of the original. 100%% covers all downscaling.</string>
-    <string name="app_name" translatable="false">Koharia</string>
+    <string name="app_name" translatable="false">Flugel Manga</string>
 
     <!-- Generic strings -->
     <string name="on">On</string>
