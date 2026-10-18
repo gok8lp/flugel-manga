@@ -48,8 +48,16 @@ sealed class ConnectionLibraryTab(
     @Volatile
     private var runtimeBrowseScreen: ConnectionBrowseScreen? = null
 
+    /** Bu sekmenin gosterecegi baglanti. Kitaplar sekmesi ayri bir baglantiya baglanabilir (Flugel). */
+    protected open fun effectiveConnectionId(active: Long, book: Long): Long = active
+
+    private fun currentConnectionId(): Long {
+        val prefs = Injekt.get<ConnectionPreferences>()
+        return effectiveConnectionId(prefs.activeConnectionId.get(), prefs.bookConnectionId.get())
+    }
+
     private fun browseScreen(
-        activeConnectionId: Long = Injekt.get<ConnectionPreferences>().activeConnectionId.get(),
+        activeConnectionId: Long = currentConnectionId(),
     ): ConnectionBrowseScreen? {
         if (activeConnectionId == NO_ACTIVE_CONNECTION) return null
         runtimeBrowseScreen?.takeIf { it.sourceId == activeConnectionId }?.let { return it }
@@ -90,7 +98,9 @@ sealed class ConnectionLibraryTab(
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val connectionPreferences = remember { Injekt.get<ConnectionPreferences>() }
-        val activeServerId by connectionPreferences.activeConnectionId.collectAsState()
+        val activeConnectionId by connectionPreferences.activeConnectionId.collectAsState()
+        val bookConnectionId by connectionPreferences.bookConnectionId.collectAsState()
+        val activeServerId = effectiveConnectionId(activeConnectionId, bookConnectionId)
         if (activeServerId == NO_ACTIVE_CONNECTION) {
             Scaffold { contentPadding ->
                 LibraryConnectionSetupPrompt(
@@ -133,7 +143,7 @@ sealed class ConnectionLibraryTab(
         val cachedSourceId = synchronized(this) {
             runtimeBrowseScreen?.sourceId.also { runtimeBrowseScreen = null }
         }
-        val activeSourceId = Injekt.get<ConnectionPreferences>().activeConnectionId.get()
+        val activeSourceId = currentConnectionId()
         setOfNotNull(
             cachedSourceId,
             activeSourceId.takeUnless { it == NO_ACTIVE_CONNECTION },
@@ -145,8 +155,10 @@ sealed class ConnectionLibraryTab(
 
     private fun newScreen(sourceId: Long): ConnectionBrowseScreen? {
         val source = Injekt.get<SourceManager>().get(sourceId) ?: return null
+        // Ayri baglanti modunda her sekme kendi baglantisinin tum icerigini gosterir.
+        val split = Injekt.get<ConnectionPreferences>().splitBookConnectionId() != null
         return (source as? ConnectionBrowseAdapter)?.createBrowseScreen(
-            scope = libraryScope,
+            scope = if (split) LibraryContentScope.ALL else libraryScope,
             listingQuery = null,
             showNavigationUp = false,
         )
@@ -164,4 +176,7 @@ data object LibraryTab : ConnectionLibraryTab(LibraryContentScope.ALL, 0u)
 
 data object ComicsTab : ConnectionLibraryTab(LibraryContentScope.COMIC, 0u)
 
-data object BooksTab : ConnectionLibraryTab(LibraryContentScope.BOOK, 1u)
+data object BooksTab : ConnectionLibraryTab(LibraryContentScope.BOOK, 1u) {
+    override fun effectiveConnectionId(active: Long, book: Long): Long =
+        Injekt.get<ConnectionPreferences>().splitBookConnectionId(active, book) ?: active
+}

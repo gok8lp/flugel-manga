@@ -921,4 +921,6 @@
     <string name="donationCampaign.paragraph3">Ancak ne olursa olsun Koharia, ben ve gönüllü insanlar tarafından geliştirilmeye devam edecek ve açık kaynak kodlu olarak kalacaktır.</string>
     <string name="donationCampaign.contactPlatform">Discord</string>
     <string name="donationCampaign.dismiss">Kapat</string>
+    <string name="flugel_book_connection_set">Kitaplar sekmesinde göster</string>
+    <string name="flugel_book_connection_remove">Kitaplar sekmesinden kaldır</string>
 </resources>

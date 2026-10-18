@@ -71,6 +71,7 @@ import koharia.connection.ConnectionProfileManager
 import koharia.connection.ConnectionProvider
 import koharia.connection.ConnectionRegistry
 import koharia.connection.LibraryConnectionProfile
+import koharia.connection.NO_ACTIVE_CONNECTION
 import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -112,6 +113,7 @@ class LibraryConnectionProfilesScreen(
         val profiles by connectionPreferences.profilesChanges()
             .collectAsState(initial = connectionPreferences.getProfiles())
         val activeConnectionId by connectionPreferences.activeConnectionId.collectAsState()
+        val bookConnectionId by connectionPreferences.bookConnectionId.collectAsState()
         val scope = rememberCoroutineScope()
 
         var selectedProviderId by rememberSaveable {
@@ -300,6 +302,23 @@ class LibraryConnectionProfilesScreen(
                                 profileActions = null
                             },
                         ) { Text(stringResource(MR.strings.connection_set_active)) }
+                        val isBookConnection = bookConnectionId == profile.id
+                        TextButton(
+                            enabled = isBookConnection || activeConnectionId != profile.id,
+                            onClick = {
+                                connectionPreferences.bookConnectionId.set(
+                                    if (isBookConnection) NO_ACTIVE_CONNECTION else profile.id,
+                                )
+                                profileActions = null
+                            },
+                        ) {
+                            Text(
+                                stringResource(
+                                    if (isBookConnection) MR.strings.flugel_book_connection_remove
+                                    else MR.strings.flugel_book_connection_set,
+                                ),
+                            )
+                        }
                         TextButton(
                             enabled =
                             canRefresh && profile.id !in refreshingConnectionIds && profile.id !in localRefreshIds,

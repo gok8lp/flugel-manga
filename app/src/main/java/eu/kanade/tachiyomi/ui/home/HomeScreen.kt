@@ -84,10 +84,15 @@ object HomeScreen : Screen() {
         val contentScopes by remember(contentScopeController) {
             contentScopeController.activeScopesChanges()
         }.collectAsState(contentScopeController.activeScopes())
-        val classificationEnabled = LibraryContentScope.COMIC in contentScopes &&
-            LibraryContentScope.BOOK in contentScopes
         val connectionPreferences = remember { Injekt.get<ConnectionPreferences>() }
         val activeConnectionId by connectionPreferences.activeConnectionId.collectPreferenceAsState()
+        val bookConnectionId by connectionPreferences.bookConnectionId.collectPreferenceAsState()
+        // Flugel: Kitaplar sekmesi ayri bir baglantiya bagliysa iki sekme birlikte gorunur.
+        val splitBooks = connectionPreferences.splitBookConnectionId(activeConnectionId, bookConnectionId) != null
+        val classificationEnabled = splitBooks || (
+            LibraryContentScope.COMIC in contentScopes &&
+                LibraryContentScope.BOOK in contentScopes
+            )
         val suwayomiActive = remember(activeConnectionId) {
             Injekt.get<SourceManager>().get(activeConnectionId) is SuwayomiSource
         }

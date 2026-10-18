@@ -27,6 +27,18 @@ class ConnectionPreferences(
         NO_ACTIVE_CONNECTION,
     )
 
+    /** Flugel: Kitaplar sekmesini etkin baglantidan bagimsiz ayri bir baglantiya (or. Kavita) baglar. */
+    val bookConnectionId: Preference<Long> = preferenceStore.getLong(
+        PREF_BOOK_CONNECTION_ID,
+        NO_ACTIVE_CONNECTION,
+    )
+
+    /** Kitaplar sekmesi ayri bir baglanti gosteriyorsa onun kimligi, aksi halde null. */
+    fun splitBookConnectionId(
+        active: Long = activeConnectionId.get(),
+        book: Long = bookConnectionId.get(),
+    ): Long? = book.takeIf { it != NO_ACTIVE_CONNECTION && it != active }
+
     val configMode: Preference<ConnectionConfigMode> = preferenceStore.getEnum(
         PREF_CONFIG_MODE,
         ConnectionConfigMode.Shared,
@@ -148,6 +160,7 @@ class ConnectionPreferences(
             profiles.isEmpty() -> activeConnectionId.set(NO_ACTIVE_CONNECTION)
             profiles.none { it.id == activeConnectionId.get() } -> activeConnectionId.set(profiles.first().id)
         }
+        if (profiles.none { it.id == bookConnectionId.get() }) bookConnectionId.set(NO_ACTIVE_CONNECTION)
     }
 
     private fun normalizeProfiles(profiles: List<LibraryConnectionProfile>): List<LibraryConnectionProfile> {
@@ -171,6 +184,7 @@ class ConnectionPreferences(
     companion object {
         internal const val PREF_PROFILES = "connection_profiles"
         internal const val PREF_ACTIVE_CONNECTION_ID = "connection_active_id"
+        internal const val PREF_BOOK_CONNECTION_ID = "flugel_book_connection_id"
         internal const val PREF_CONFIG_MODE = "connection_config_mode"
         internal const val PREF_HAS_INITIALIZED_PROFILES = "connection_has_initialized_profiles"
         internal const val PREF_KNOWN_CONNECTION_IDS = "connection_known_ids"

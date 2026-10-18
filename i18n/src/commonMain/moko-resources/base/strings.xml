@@ -645,6 +645,8 @@
     <string name="pref_library_columns_portrait">Portrait shelf columns</string>
     <string name="pref_library_columns_landscape">Landscape shelf columns</string>
     <string name="connection_set_active">Set as active</string>
+    <string name="flugel_book_connection_set">Show in Books tab</string>
+    <string name="flugel_book_connection_remove">Remove from Books tab</string>
     <string name="pref_auto_check_app_updates">Automatically check for updates</string>
     <string name="pref_show_update_reminders">Show update reminders</string>
     <string name="entry_open_group">Entry opening</string>
