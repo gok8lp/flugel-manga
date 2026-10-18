@@ -2320,4 +2320,8 @@
     <string name="suwayomi_clear_queue_confirm">Cancel all queued server downloads? Completed files will be kept.</string>
     <string name="suwayomi_add_library">Add to server library</string>
     <string name="suwayomi_remove_library">Remove from server library</string>
+    <string name="flugel_manga_indir">Download manga</string>
+    <string name="flugel_manga_indir_aciklama">Search and follow manga on the server (Tranga)</string>
+    <string name="flugel_kutuphaneye_ekle">Add to library</string>
+    <string name="flugel_kutuphaneye_ekle_aciklama">Upload EPUB/PDF/CBZ from this phone to the server</string>
 </resources>

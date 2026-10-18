@@ -923,4 +923,8 @@
     <string name="donationCampaign.dismiss">Kapat</string>
     <string name="flugel_book_connection_set">Kitaplar sekmesinde göster</string>
     <string name="flugel_book_connection_remove">Kitaplar sekmesinden kaldır</string>
+    <string name="flugel_manga_indir">Manga indir</string>
+    <string name="flugel_manga_indir_aciklama">Sunucuda manga ara ve takibe al (Tranga)</string>
+    <string name="flugel_kutuphaneye_ekle">Kütüphaneye ekle</string>
+    <string name="flugel_kutuphaneye_ekle_aciklama">Telefondaki EPUB/PDF/CBZ dosyasını sunucuya yükle</string>
 </resources>

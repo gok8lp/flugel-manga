@@ -3,7 +3,9 @@ package eu.kanade.presentation.more
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
+import androidx.compose.material.icons.outlined.CloudDownload
 import androidx.compose.material.icons.outlined.CloudOff
+import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.GetApp
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.QueryStats
@@ -106,6 +108,23 @@ fun MoreScreen(
                         onPreferenceClick = onClickServerDownloads,
                     )
                 }
+            }
+            // Flugel: sunucudaki indirici ve yukleme sayfalari (sifreli, tarayicida acilir)
+            item {
+                TextPreferenceWidget(
+                    title = stringResource(MR.strings.flugel_manga_indir),
+                    subtitle = stringResource(MR.strings.flugel_manga_indir_aciklama),
+                    icon = Icons.Outlined.CloudDownload,
+                    onPreferenceClick = { uriHandler.openUri("https://indir.gokalpgoksu.com/") },
+                )
+            }
+            item {
+                TextPreferenceWidget(
+                    title = stringResource(MR.strings.flugel_kutuphaneye_ekle),
+                    subtitle = stringResource(MR.strings.flugel_kutuphaneye_ekle_aciklama),
+                    icon = Icons.Outlined.CloudUpload,
+                    onPreferenceClick = { uriHandler.openUri("https://gokalpgoksu.com/yukle/") },
+                )
             }
             item {
                 TextPreferenceWidget(
