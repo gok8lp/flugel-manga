@@ -126,7 +126,7 @@ class KomgaSseClient(
             return
         }
 
-        val httpUrl = "$baseUrl/api/v1/sse/v1/events".toHttpUrlOrNull()
+        val httpUrl = "$baseUrl/sse/v1/events".toHttpUrlOrNull()
         if (httpUrl == null) {
             isConnecting = false
             logcat(LogPriority.WARN) { "Komga SSE: invalid base URL: $baseUrl" }
@@ -149,7 +149,7 @@ class KomgaSseClient(
             ).also { activeTarget = it }
         }
 
-        logcat(LogPriority.INFO) { "Komga SSE connecting to $baseUrl/api/v1/sse/v1/events" }
+        logcat(LogPriority.INFO) { "Komga SSE connecting to $baseUrl/sse/v1/events" }
 
         val factory = EventSources.createFactory(eventSourceClient)
         eventSource = factory.newEventSource(

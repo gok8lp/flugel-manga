@@ -2,6 +2,11 @@ name: Flugel test APK
 
 on:
   workflow_dispatch:
+    inputs:
+      surum:
+        description: 'Yayin etiketi (or. v0.1.1-test)'
+        required: true
+        default: v0.1.1-test
 
 permissions:
   contents: write
@@ -36,6 +41,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create v0.1.0-test Flugel-Manga-test.apk Flugel-Manga-test.apk.sha256 \
-            --target "$GITHUB_SHA" --title 'Flugel Manga v0.1.0-test' --prerelease \
+          gh release create "${{ inputs.surum }}" Flugel-Manga-test.apk Flugel-Manga-test.apk.sha256 \
+            --target "$GITHUB_SHA" --title "Flugel Manga ${{ inputs.surum }}" --prerelease \
             --notes 'Koharia tabanlı Android test APK. Komga/Kavita bağlantısını uygulamada kurun; kimlik bilgileri APK içine gömülü değildir. Fiziksel cihaz testi bekleniyor.'
