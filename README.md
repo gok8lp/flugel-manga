@@ -1,276 +1,51 @@
-<div align="center">
+# Koharia Reader
 
-<img src="./.github/assets/logo.png" alt="Koharia logo" title="Koharia logo" width="80"/>
+Koharia/Mihon tabanlı kişisel Android manga ve kitap okuyucu uyarlaması.
+Personal Android reader fork based on [Koharia](https://github.com/Mister-album/Koharia), built on [Mihon](https://github.com/mihonapp/mihon).
+Bu depo bu projelerin resmî sürümü değildir; özgün yazarların çalışmaları ve lisansları korunur.
 
-<p><strong>简体中文</strong> · <a href="./README_EN.md">English</a></p>
+## Ne yapar?
 
-# Koharia
+Komga, Kavita ve yerel kitaplık bağlantılarını kullanarak manga ve kitap okuma akışını kişisel sunucu düzenine uyarlar.
+Depoda başka sağlayıcılara ait upstream modüller de vardır; modülün bulunması bu uyarlamada uçtan uca doğrulandığı anlamına gelmez.
+Kitap, hesap bilgisi veya hazır sunucu erişimi sağlamaz.
 
-面向 Komga、Kavita、LANraragi、smanga、Suwayomi 与本地媒体库的 Android 漫画和书籍阅读器
+## Kullanıcı olarak başlamak
 
-[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-0877d2?labelColor=27303D)](./LICENSE)
-[![Latest release](https://img.shields.io/github/v/release/Mister-album/Koharia?label=release)](https://github.com/Mister-album/Koharia/releases/latest)
+1. Bu deponun [Releases](https://github.com/gok8lp/koharia-reader/releases) bölümünde yayımlanmış bir test APK'si varsa sürüm notlarını oku.
+2. Uygulamada kendi Komga/Kavita sunucunu ve hesabını yapılandır.
+3. Bağlantı, kitaplık görünümü ve okuma akışını kendi cihazında dene.
 
-</div>
+Ayrıntılı adımlar: [Android kurulum notları](ANDROID_SETUP.md).
+Önceki test APK'leri eski uygulama adını taşıyabilir; kaynak değişikliği mevcut APK'yi yeniden derlemez.
 
-## 项目简介
+## Kaynaktan derleme
 
-Koharia 是一款面向 [Komga](https://komga.org/)、[Kavita](https://www.kavitareader.com/)、[LANraragi](https://github.com/Difegue/LANraragi)、[smanga](https://github.com/lkw199711/smanga)、[Suwayomi](https://github.com/Suwayomi/Suwayomi-Server) 服务器与本地媒体库的第三方 Android 客户端和阅读器。本地媒体库可关联设备目录，也可通过 WebDAV、SMB 连接网络目录。它为漫画、扫描图像内容、PDF 以及 EPUB、TXT、MOBI、Markdown 等可重排书籍提供对应的阅读体验，并将内容浏览、作品详情、阅读进度、离线访问与阅读设置整合在同一个应用中。不同来源的格式与同步能力见下方说明。
+Android Studio, projenin Android SDK/NDK bileşenleri ve Gradle için Java 17 gerekir.
+Kesin sürümler `gradle/koharia.versions.toml`, `.github/.java-version` ve build dosyalarında tanımlıdır.
 
-项目基于 [Mihon](https://github.com/mihonapp/mihon) 的成熟 Android 阅读基础持续开发。Koharia 不提供或托管内容，你能浏览的作品取决于所连接的服务器、账号权限以及主动授权给应用的本地目录。
-
-<table>
-  <tr>
-    <td align="center" width="25%">
-      <img src="./.github/assets/screenshots/library-zh-cn.png" alt="Koharia 主界面" width="180"/><br/>
-      <sub>主界面</sub>
-    </td>
-    <td align="center" width="25%">
-      <img src="./.github/assets/screenshots/epub-reader-zh-cn.png" alt="Koharia EPUB 书籍阅读界面" width="180"/><br/>
-      <sub>书籍阅读</sub>
-    </td>
-    <td align="center" width="25%">
-      <img src="./.github/assets/screenshots/series-details-zh-cn.png" alt="Koharia 作品详情页" width="180"/><br/>
-      <sub>作品详情</sub>
-    </td>
-    <td align="center" width="25%">
-      <img src="./.github/assets/screenshots/comic-reader-zh-cn.png" alt="Koharia 漫画阅读界面" width="180"/><br/>
-      <sub>漫画阅读</sub>
-    </td>
-  </tr>
-</table>
-
-## 适合谁使用
-
-- 希望在同一个 Android 应用中阅读漫画、PDF 与多种电子书格式。
-- 拥有个人或家庭媒体库，需要封面浏览、作品详情、历史记录与进度同步。
-- 希望直接关联设备上的现有目录，或由应用创建并管理漫画与书籍目录。
-- 重视阅读方向、字体排版、背景颜色、翻页方式和离线访问等个性化体验。
-- 希望将手动下载、书籍缓存和漫画页面缓存分开管理。
-
-Koharia 专注于个人媒体库阅读，不内置公共在线内容源。Suwayomi 连接中的图源与扩展由用户自己的服务器提供和运行，不在 Android 端安装 Mihon 扩展。
-
-## 主要功能
-
-### Komga 书库
-
-- 内置 Komga 支持，可配置多个服务器与账号，并在书架中快速切换。
-- 按服务器书库浏览系列与卷册，查看封面和作品详情，支持搜索、筛选与排序。
-- 漫画使用分页、连续滚动或双页阅读；EPUB 使用可重排书籍阅读器。
-- 支持在线阅读、手动下载和离线访问，并与服务器同步支持的阅读进度及历史记录。
-- 书架数据缓存到本地，优先显示已有内容；可手动刷新，也可响应服务器更新事件。
-
-### Kavita 书库
-
-- 内置 Kavita 接入，无需安装 Mihon 扩展；以 **Kavita 0.8.0 及以上版本**为兼容目标，按服务器版本和账号权限提供功能。
-- 支持多个服务器和账号、反向代理子路径，以及同一服务器的可选内网地址；账号、缓存与阅读记录按连接隔离。
-- 根据服务器媒体库类型区分漫画与书籍，保留系列、卷和章节结构，支持封面浏览、作品详情及搜索。
-- 筛选和排序使用底部面板，提供媒体库、格式、出版状态、题材、标签、合集、语言、年龄分级和想读等常用筛选。
-- 漫画使用分页或连续滚动阅读器，EPUB 使用原生可重排阅读器，PDF 支持按页阅读及重排入口。在线 EPUB 通过阅读接口加载，不要求原文件下载权限。
-- 阅读进度先保存在本地，再异步同步；支持历史记录、离线待同步记录和进度冲突选择。EPUB 使用内容位置同步，不将设备排版产生的视觉页数上传为服务器页码。
-- 提供想读、合集、跨系列阅读列表及智能筛选相关入口；支持漫画页收藏、个人目录书签和 EPUB 高亮、注释，具体能力受版本与权限限制。
-- 连接编辑中的“自定义书架”可调整 Kavita 首页书架的显示和顺序，修改立即同步到服务器；移除自定义书架不会删除书籍或对应筛选。
-- 手动下载与主动离线保存遵守服务器权限；书架元数据缓存不等于正文已下载。无 Kavita+ 订阅也可使用基础阅读功能，订阅相关内容由服务器提供。
-
-### LANraragi 书库
-
-- 内置 LANraragi 支持，无需安装扩展；可添加多个服务器，通过服务器地址与 API Key 配置连接，未启用鉴权时可留空 Key。
-- Archive 作为独立作品阅读，Tankoubon 作为合集显示其 Archive 成员；Category 显示在书架顶部，方便切换分类。
-- 支持搜索、标签与阅读状态筛选、排序，以及在线阅读和手动下载后离线阅读。
-- Archive 可直接进入阅读器，也可先打开带逐页网格预览的详情页，再从指定页面开始阅读。
-- 缓存书库元数据，离线时仍可浏览和搜索；正文需另行下载，元数据缓存不代表作品已下载。
-- 按 Archive 同步阅读进度，离线阅读记录可在恢复连接后补传；需要服务器开启进度记录并提供相应权限。“标记未读”仅重置本地状态，不清零服务器进度。
-
-### smanga 书库
-
-- 内置 smanga 支持，无需安装扩展；面向 **smanga 4.3 API**，使用服务器地址、用户名和密码连接，服务器需启用 **OPDS**。保存连接时会验证登录及 OPDS 可用性。
-- 支持多个连接，服务器地址可包含反向代理子路径或 `/api` 后缀；还可配置同一服务器的内网地址，在 Wi-Fi 下优先使用。
-- 可浏览账号有权访问的全部媒体库，或切换到单个媒体库；支持名称搜索、名称／更新时间／添加时间排序，以及仅查看已下载内容。
-- 提供作品详情、章节列表、漫画逐页阅读和 PDF 阅读，支持手动下载后离线阅读。PDF 需先取得完整原文件，再按页渲染。
-- 书架与详情数据持久缓存，启动时优先显示已有内容；离线可浏览已缓存的内容，未缓存的查询仍需联网。目录缓存与正文下载分开管理。
-- 同步章节阅读进度、已读状态和阅读历史，待同步记录保存在本地并重试；遇到进度冲突或页面映射变化时，可确认采用本地或服务器进度。缓存与阅读记录按连接和账号隔离。
-
-### Suwayomi 书库
-
-- 内置 [Suwayomi-Server](https://github.com/Suwayomi/Suwayomi-Server) 接入，以 **2.4.2366 及以上版本**为兼容目标；保存连接时验证版本、认证与所需接口。
-- 可添加多个连接，填写服务器地址并选择与服务端一致的认证模式：无认证、Basic、Simple Login 或 UI Login / JWT。地址需包含反向代理子路径，也可配置经验证属于同一服务器的内网地址。
-- 按分类浏览服务端书架，支持封面、作品详情、章节列表、搜索、筛选和排序；连接设置可选择显示的分类，应用内可管理服务端分类与作品归属。
-- 提供服务端图源浏览、搜索、筛选、置顶及图源设置，并可管理服务端扩展的安装、更新和卸载。可用图源、扩展与操作能力取决于服务器配置。
-- 漫画使用通用分页、连续滚动或双页阅读器，支持下载到本机后离线阅读；另有服务端下载队列管理，下载到服务器不代表已保存到手机。
-- 书架与详情优先显示已有缓存，缺少数据时按需获取，也可手动刷新。书架刷新读取服务器已有数据，与主动获取图源作品详情和章节分开。
-- 阅读进度、已读状态与历史记录按连接和账号隔离，离线记录保存在本地等待同步；进度冲突或页面映射变化时可选择采用本地或服务器进度。
-- 提供同一服务器内的图源迁移入口，可查找目标作品并按选项迁移分类、阅读状态等信息；本机下载文件不会直接变成目标图源的下载。
-
-Suwayomi 接入提供漫画阅读，不提供 EPUB 书籍阅读入口。
-
-### 本地媒体库
-
-- 支持漫画压缩包、图片目录、PDF、EPUB、TXT、MOBI 和 **Markdown 文档**等本地内容。Markdown 可按书籍方式分页阅读，呈现标题、列表、引用和代码块等格式，并调整字体与排版。
-- 可通过 Android 系统目录授权关联已有文件夹，扫描过程不会移动或删除原文件；也可由 Koharia 创建 `Comics`、`Books` 与 `.koharia` 目录结构。
-- 可通过 WebDAV 或 SMB 关联 NAS、家庭服务器上的目录，沿用本地库的书架组织与阅读入口，连接方式与限制见下方说明。
-- 本地目录可标记为漫画、书籍或混合内容，并分别归入自定义书库。
-- 提供“系列库”和“单文件库”两种组织方式：前者将一级文件夹视为系列，后者递归展示可直接阅读的文件和图片目录。
-- 支持本地索引、下拉刷新、封面提取、格式筛选、条目详情编辑，以及从第一页生成封面。
-- 可从 Android 文件打开或分享入口临时阅读支持的文件，也可将文件导入具备写入权限的本地目录。
-- 统一使用扩展名、MIME 类型和文件特征识别格式，降低文件名缺失或扩展名不准确造成的导入失败。
-- 元数据编辑结果可仅保存在应用数据库，也可写入作品旁的 `ComicInfo.xml` / `metadata.opf`，或本地库的 `.koharia/metadata` 统一目录。
-
-#### 本地格式支持
-
-| 内容类型 | 扩展名或形式 | 阅读方式与说明 |
-| --- | --- | --- |
-| 漫画压缩包 | `CBZ`、`ZIP`、`CBR`、`RAR`、`7Z`、`CB7`、`TAR`、`CBT` | 使用漫画阅读器，支持分页、连续滚动与双页等模式 |
-| 图片与图片目录 | `JPG`、`JPEG`、`PNG`、`GIF`、`WEBP`、`AVIF`、`HEIF`、`HEIC`、`JXL` | 可作为单个条目或按目录组织阅读 |
-| EPUB | `EPUB` | 使用原生可重排阅读器，支持目录、书签、搜索与排版设置 |
-| PDF | `PDF` | 按页原生渲染，使用漫画分页或连续滚动阅读流程 |
-| 纯文本 | `TXT` | 自动识别 UTF-8、UTF-16、GB18030 等常见编码，支持分页和书籍排版设置；单文件上限为 64 MiB |
-| Markdown | `MD`、`MARKDOWN`、`MDOWN`、`MKD`、`MKDN` | 使用可重排分页渲染标题、加粗、斜体、列表、引用、代码块等富文本；支持分页和书籍排版设置；不渲染内嵌图片，表格按文本降级显示；单文件上限为 16 MiB |
-| Mobipocket / Kindle | `MOBI`、`PRC`、`AZW`、`AZW3` | 实验性支持 PalmDOC / KF8 文本和基础元数据，使用可重排分页；暂不支持 DRM、复杂布局与内嵌图片，单文件上限为 256 MiB |
-| DjVu | `DJVU`、`DJV` | 通过 MIT 许可的 `djvu-rs` WASM 解码 JB2 / IW44 页面并使用漫画阅读器显示；运行依赖 Android WebView 的 WebAssembly 能力 |
-
-DJVU 解码器由系统 WebView 的 JavaScript / WebAssembly 运行时执行，当前构建不包含或使用 Chicory。组件来源、许可证与校验信息见 [`app/src/main/assets/djvu/README.txt`](./app/src/main/assets/djvu/README.txt)。
-
-#### WebDAV／SMB 网络目录
-
-在“添加本地库”中选择 WebDAV 或 SMB，依次完成连接命名、登录认证、库目录选择与书架配置。每个连接固定一种存储模式，可添加多个书架目录；已有本地目录连接保留原有授权和阅读记录。
-
-- **WebDAV**：填写服务器地址、端口及所需账号凭据，例如 `https://example.com:5006`；认证后浏览或输入库目录，也可使用服务器根目录。兼容 `https://example.com/dav/books/` 等完整地址；Nextcloud 等服务可填写 `remote.php/dav/files/用户名` 作为目录路径。
-- **SMB**：支持 SMB2／SMB3，填写服务器地址与端口，例如 `192.168.1.10:445`，以及账号凭据和需要的域；认证后浏览共享及子目录。也可使用 `smb://192.168.1.10/library` 等完整地址。
-- 可在连接设置中重新选择库目录，修改连接信息后需重新验证。库的默认文件夹按连接保存，不更改应用的全局备份、下载或缓存目录。
-- 支持主地址和可选局域网地址，自动切换前须验证两者对应同一根目录；仅在局域网使用时，将局域网地址填为主地址即可。
-- 沿用本地库的系列库／单文件库、封面浏览、作品详情和按格式选择阅读器的流程。首次扫描逐步显示条目，后续优先使用已保存的索引；新增或外部修改文件后请手动刷新，恢复网络不会自动重扫。
-- 正文按需读取，自动内容缓存默认 **512 MiB**，可在通用设置调整；不支持范围读取的文件需先完整缓存。手动下载另行管理，目录索引或部分缓存不代表正文已完整离线保存。
-- 可写根目录的 `.koharia` 保存库身份、文件身份映射和阅读同步记录。同一账户可在多设备间同步，不同账户的进度分开；进度按事件修改时间合并，允许回退和标记未读，设备时钟会影响合并结果。无法写入共享身份时，仅支持单地址只读浏览和本机进度。
-- 备份恢复后须重新验证网络连接；移除连接只清理所属本机数据，不删除远程文件。旧版未区分账户的远端进度文件会保留，但不再自动导入。
-
-同一物理目录分别通过 WebDAV 与 SMB 接入时，按独立连接使用，不支持跨协议的内容版本匹配与进度合并。
-
-### 漫画与书籍统一管理
-
-- 可选择将媒体库划分为“漫画”和“书籍”，也可以保持合并书架。
-- 支持封面网格、列表、搜索、筛选、排序、作品详情、阅读历史和多服务器快速切换。
-- 各连接的账号、书库数据与阅读记录相互隔离；应用外观与阅读设置共享，切换来源时保持一致体验。
-
-### 漫画阅读
-
-- 支持分页、连续滚动、从左到右、从右到左及双页等阅读方式。
-- 提供缩放、旋转、裁边、阅读方向、章节切换和进度拖动等常用控制。
-- 优先加载当前页面，并根据阅读方向预取相邻页面，提升连续翻页体验。
-- 支持单页缓存和手动下载，已缓存内容可在网络不稳定时继续阅读。
-
-### EPUB 书籍阅读
-
-- 使用原生 EPUB 阅读流程，支持分页、连续滚动及不同翻页方向。
-- 可调整字号、字体、行距、段落间距、页边距、首行缩进和阅读区域。
-- 支持自定义背景颜色、亮度、出版商样式、音量键翻页及刘海区域显示。
-- 提供目录、书签、全文搜索、章节切换、阅读百分比与视觉页数显示。
-- 支持语音朗读，可边听边看，自动续读与句级高亮帮助跟随正文；支持切换语音引擎、音色和语速。
-- 排版变化后重新计算当前页与总页数，并缓存相同设备和排版设置下的分页结果。
-
-#### 朗读（TTS）
-
-- 按句朗读当前 EPUB 章节，并自动续播下一章；句级高亮与朗读进度保持同步，可在阅读器控制条或锁屏 / 蓝牙媒体键上切句、暂停与继续。
-- 默认使用 Microsoft Edge 在线语音，无需 API Key；也可切换至小米 MiMo TTS（需配置自己的 API Key），音色按引擎分别保存。
-- 阅读器内提供播放控制和常用朗读设置，完整配置位于书籍阅读器设置中的“语音引擎”。
-- 朗读语速可调；句间停顿与 MP3 编码器延迟 / padding 会自动裁剪，保证连续听感。
-- 朗读时申请音频焦点，与其他播放器互斥：被电话等短暂打断后自动恢复，需要让出音量时（duck）会自动压低。
-- 合成结果按句缓存在本地（上限 256 MiB，按最近使用淘汰），重复朗读同一章节不再重新合成。
-- **数据披露**：语音由所选引擎合成，因此**当前章节正文会上传至对应厂商**（MiMo 或 Microsoft）。首次朗读前会弹窗确认，设置页也常驻说明；不希望正文外发时可改用其他阅读方式。
-- API key 只保存在设备本地，使用 Android 系统密钥库（Keystore，AES-256-GCM）加密，构建产物与备份中不含明文 Key。
-
-小米 MiMo TTS **目前可免费试用（限时）**，可前往[小米 MiMo 开放平台注册试用](https://platform.xiaomimimo.com?ref=RD7JZG)。注册并创建 API Key 后，在 Koharia 的语音引擎设置中选择 MiMo 并填写密钥即可使用。免费试用范围、额度与期限以[小米官方说明](https://mimo.mi.com/models/zh-CN/mimo-v2.5-tts)及平台最新规则为准。
-
-### 进度、离线与数据管理
-
-- Komga、Kavita、LANraragi、smanga 与 Suwayomi 书架优先显示已有本地缓存；缺少所请求的数据时按需获取，后续可手动刷新，Komga 与 Kavita 还可响应服务器更新事件。WebDAV／SMB 目录同样保留本地索引，外部文件变更后可手动刷新。
-- 保存本地阅读位置、历史记录和书签，并与服务器同步支持的阅读进度。
-- 手动下载、书籍缓存和漫画页面缓存使用独立策略，缓存不会被误标记为已下载内容。
-- 支持缓存容量限制、按需资源读取、离线访问，以及按服务器组织下载目录。
-- 支持多服务器和本地库连接、共享阅读设置、备份恢复和旧版本数据库迁移。
-
-## 下载
-
-| 渠道 | 下载地址 | 说明 |
-| --- | --- | --- |
-| GitHub Releases | [下载最新版本](https://github.com/Mister-album/Koharia/releases/latest) | 推荐，可查看完整版本说明与 APK Assets |
-| 夸克网盘 | [打开下载链接](https://pan.quark.cn/s/f80624cde564?pwd=8tbp) | 提取码：`8tbp` |
-| 百度网盘 | [打开下载链接](https://pan.baidu.com/s/1DlOuovGpIkaQh6NSo7b4cw?pwd=6s2g) | 提取码：`6s2g` |
-
-安装前请确认下载的是项目发布的 APK。版本信息与更新说明以 GitHub Releases 为准。
-
-## 构建项目
-
-本项目面向 Android 8.0 及以上系统。推荐使用 Android Studio 打开项目，也可以在 Windows PowerShell 中使用 Gradle 构建。
-
-常用验证命令：
-
-```powershell
-.\gradlew.bat spotlessCheck
-.\gradlew.bat verifyEInkMotion
-.\gradlew.bat :app:compileDebugKotlin
+```bash
+./gradlew spotlessCheck
+./gradlew :app:compileDebugKotlin
+./gradlew :app:assembleDebug
 ```
 
-与 CI 对齐时，还需执行单元测试和数据库迁移检查：
+Windows'ta aynı görevler `gradlew.bat` ile çalıştırılır. APK'ler `app/build/outputs/apk/` altında oluşur.
+Yayın imzalama anahtarları depoya eklenmez; debug APK geliştirme içindir.
 
-```powershell
-.\gradlew.bat testDebugUnitTest
-.\gradlew.bat verifySqlDelightMigration
-```
+## Proje haritası
 
-生成发布包：
+| Dizin | İçerik |
+| --- | --- |
+| `app/` | Android uygulaması, ekranlar ve bağlantı yönetimi |
+| `i18n/` | Ortak ve Türkçe metin kaynakları |
+| `data/`, `domain/` | Veri ve iş kuralları |
+| `core/`, `presentation-*` | Ortak altyapı ve arayüz bileşenleri |
+| `.github/workflows/` | Derleme ve doğrulama iş akışları |
 
-```powershell
-.\gradlew.bat :app:assembleRelease
-```
+## Kaynak ve lisans
 
-发布签名会读取本地的 `keystore.properties`。如果你只是本地开发或调试，通常不需要配置发布签名。
-
-## 项目来源与声明
-
-Koharia 基于 [Mihon](https://github.com/mihonapp/mihon) 开发，并遵循 Apache License 2.0。许可证与署名信息见 [LICENSE](./LICENSE) 和 [NOTICE](./NOTICE)。
-
-贡献相关说明见 [CONTRIBUTING.md](./CONTRIBUTING.md) 与 [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)。再分发或制作衍生版本时，请保留必要署名，并避免将其描述为 Mihon、Komga、Kavita、LANraragi、smanga 或 Suwayomi 的官方版本。
-
-## 致谢
-
-Koharia 建立在 Javier Tomas 最初完成的工作、Mihon 项目贡献者的持续投入，以及 Komga 社区提供的服务器生态之上。感谢所有继续改进这一衍生版本的贡献者。
-
-## 交流与反馈
-
-可加入 [Komga Discord 频道](https://discord.gg/komga-678794935368941569)，前往其中的 `Koharia` 子频道交流应用使用、阅读体验及相关话题，也可以反馈使用过程中遇到的问题。
-
-## 支持
-
-Koharia 是一个由项目维护者与社区贡献者共同改进的开源项目。持续开发与维护需要投入时间处理上游变更、阅读体验、下载与同步、Android 兼容，以及日常测试和发布工作。
-
-如果 Koharia 对你的阅读流程有帮助，欢迎通过 Patreon 或爱发电支持项目。你的支持有助于项目持续维护、修复问题和打磨漫画与书籍阅读体验。提交代码、完善文档、参与测试和反馈问题，同样是对项目的支持。
-
-- Patreon：[https://www.patreon.com/c/ALBUM937](https://www.patreon.com/c/ALBUM937)
-- 爱发电：[https://ifdian.net/a/album-Koharia](https://ifdian.net/a/album-Koharia)
-
-## 免责声明
-
-Koharia 不提供、不托管任何内容。应用只负责连接你配置的个人媒体服务器，以及扫描或导入你主动授权的本地文件；本地索引仅用于在设备上组织和展示内容。请确保你对服务器及本地目录中的内容拥有相应的使用权限，并遵守所在地法律法规。
-
-## 许可证
-
-Copyright (C) 2015 Javier Tomas
-
-Copyright (C) Mihon contributors
-
-Copyright (C) 2026 Koharia contributors
-
-本项目基于 Apache License, Version 2.0 授权。详情见 [LICENSE](./LICENSE) 与 [NOTICE](./NOTICE)。
-
-## 贡献者
-
-感谢每一位为 Koharia 提交代码、完善文档与翻译、参与测试和反馈问题的贡献者。欢迎阅读[贡献指南](./CONTRIBUTING.md)，一起改进阅读体验。
-
-<!-- koharia-contributors:start -->
-<p>
-  <a href="https://github.com/CurrenWong"><img src="./.github/assets/contributors/CurrenWong.svg" width="64" height="64" alt="CurrenWong" title="CurrenWong" /></a>
-  <a href="https://github.com/Mister-album"><img src="./.github/assets/contributors/Mister-album.svg" width="64" height="64" alt="Mister-album" title="Mister-album" /></a>
-</p>
-<!-- koharia-contributors:end -->
-
-[提交问题或建议](https://github.com/Mister-album/Koharia/issues)
+Upstream açıklamalar: [English](README_EN.md) · [简体中文](README_UPSTREAM.zh-CN.md).
+Bu belgelerdeki upstream indirme ve destek bağlantıları özgün projeye aittir.
+[LICENSE](LICENSE), [NOTICE](NOTICE), [CONTRIBUTING.md](CONTRIBUTING.md) ve üçüncü taraf atıfları korunmuştur.
+Koharia, Mihon, Komga veya Kavita'nın resmî ürünü olduğu iddia edilmez.

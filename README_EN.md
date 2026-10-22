@@ -1,3 +1,5 @@
+> This is the upstream Koharia feature guide. For this personal fork, build instructions and its own releases, start with [README.md](README.md).
+
 <div align="center">
 
 <img src="./.github/assets/logo.png" alt="Koharia logo" title="Koharia logo" width="80"/>
